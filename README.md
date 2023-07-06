@@ -25,3 +25,5 @@ The driver can be launched using the following command:
 ros2 launch naoqi_driver naoqi_driver.launch.py nao_ip:=<ip> nao_port:=<port> network_interface:=<interface> username:=<name> password:=<passwd>
 ```
 Note that the username and password arguments are only required for robots running naoqi 2.9 or greater.
+
+### Succesfully compiled against ROS2/foxy with the steps listed above
