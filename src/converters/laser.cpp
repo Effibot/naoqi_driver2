@@ -32,7 +32,7 @@ namespace naoqi
 namespace converter
 {
 
-static const char* laserMemoryKeys[] = {
+static const char * laserMemoryKeys[] = {
   // RIGHT LASER
   "Device/SubDeviceList/Platform/LaserSensor/Right/Horizontal/Seg01/X/Sensor/Value",
   "Device/SubDeviceList/Platform/LaserSensor/Right/Horizontal/Seg01/Y/Sensor/Value",
@@ -128,26 +128,28 @@ static const char* laserMemoryKeys[] = {
   "Device/SubDeviceList/Platform/LaserSensor/Left/Horizontal/Seg15/Y/Sensor/Value",
 };
 
-LaserConverter::LaserConverter( const std::string& name, const float& frequency, const qi::SessionPtr& session ):
-  BaseConverter( name, frequency, session ),
+LaserConverter::LaserConverter(
+  const std::string & name, const float & frequency,
+  const qi::SessionPtr & session)
+: BaseConverter(name, frequency, session),
   p_memory_(session->service("ALMemory"))
 {
 }
 
-void LaserConverter::registerCallback( message_actions::MessageAction action, Callback_t cb )
+void LaserConverter::registerCallback(message_actions::MessageAction action, Callback_t cb)
 {
   callbacks_[action] = cb;
 }
 
-void LaserConverter::callAll( const std::vector<message_actions::MessageAction>& actions )
+void LaserConverter::callAll(const std::vector<message_actions::MessageAction> & actions)
 {
-  static const std::vector<std::string> laser_keys_value(laserMemoryKeys, laserMemoryKeys+90);
+  static const std::vector<std::string> laser_keys_value(laserMemoryKeys, laserMemoryKeys + 90);
 
   std::vector<float> result_value;
   try {
-      qi::AnyValue anyvalues = p_memory_.call<qi::AnyValue>("getListData", laser_keys_value);
-      tools::fromAnyValueToFloatVector(anyvalues, result_value);
-  } catch (const std::exception& e) {
+    qi::AnyValue anyvalues = p_memory_.call<qi::AnyValue>("getListData", laser_keys_value);
+    tools::fromAnyValueToFloatVector(anyvalues, result_value);
+  } catch (const std::exception & e) {
     std::cerr << "Exception caught in LaserConverter: " << e.what() << std::endl;
     return;
   }
@@ -163,77 +165,77 @@ void LaserConverter::callAll( const std::vector<message_actions::MessageAction>&
    * we transform (statically) from laser frame into base_footprint
    */
   // ranges between 0-29
-  for( size_t i=0; i<30; i=i+2, ++pos)
-  {
-    const float lx = result_value[28-i]; // segments are internally flipped
-    const float ly = result_value[28-i+1]; // segments are internally flipped
-    float bx = lx*std::cos(-1.757) - ly*std::sin(-1.757) - 0.018;
-    float by = lx*std::sin(-1.757) + ly*std::cos(-1.757) - 0.090;
-    float dist = std::sqrt( std::pow(bx,2) + std::pow(by,2) );
+  for (size_t i = 0; i < 30; i = i + 2, ++pos) {
+    const float lx = result_value[28 - i]; // segments are internally flipped
+    const float ly = result_value[28 - i + 1]; // segments are internally flipped
+    float bx = lx * std::cos(-1.757) - ly * std::sin(-1.757) - 0.018;
+    float by = lx * std::sin(-1.757) + ly * std::cos(-1.757) - 0.090;
+    float dist = std::sqrt(std::pow(bx, 2) + std::pow(by, 2) );
     //float dist = std::sqrt( std::pow(lx,2) + std::pow(ly,2) );
     //std::cout << "got a distance at "<< pos << " with "  << dist << std::endl;
     msg_.ranges[pos] = dist;
   }
 
-  pos = pos+8; // leave out 8 blanks ==> pos = 15+8
+  pos = pos + 8; // leave out 8 blanks ==> pos = 15+8
 
   // ranges between 30-59
-  for( size_t i=0; i<30; i=i+2, ++pos)
-  {
-    const float lx = result_value[58-i];
-    const float ly = result_value[58-i+1];
-    float bx = lx + 0.056 ;
+  for (size_t i = 0; i < 30; i = i + 2, ++pos) {
+    const float lx = result_value[58 - i];
+    const float ly = result_value[58 - i + 1];
+    float bx = lx + 0.056;
     float by = ly;
-    float dist = std::sqrt( std::pow(bx,2) + std::pow(by,2) );
+    float dist = std::sqrt(std::pow(bx, 2) + std::pow(by, 2) );
     //float dist = std::sqrt( std::pow(lx,2) + std::pow(ly,2) );
     //std::cout << "got a distance at "<< pos << " with "  << dist << std::endl;
     msg_.ranges[pos] = dist;
   }
 
-  pos = pos+8; // leave out again 8 blanks ==> pos = 15+8+15+8
+  pos = pos + 8; // leave out again 8 blanks ==> pos = 15+8+15+8
 
-  for( size_t i=0; i<30; i=i+2, ++pos)
-  {
-    const float lx = result_value[88-i];
-    const float ly = result_value[88-i+1];
-    float bx = lx*std::cos(1.757) - ly*std::sin(1.757) - 0.018;
-    float by = lx*std::sin(1.757) + ly*std::cos(1.757) + 0.090;
-    float dist = std::sqrt( std::pow(bx,2) + std::pow(by,2) );
+  for (size_t i = 0; i < 30; i = i + 2, ++pos) {
+    const float lx = result_value[88 - i];
+    const float ly = result_value[88 - i + 1];
+    float bx = lx * std::cos(1.757) - ly * std::sin(1.757) - 0.018;
+    float by = lx * std::sin(1.757) + ly * std::cos(1.757) + 0.090;
+    float dist = std::sqrt(std::pow(bx, 2) + std::pow(by, 2) );
     //float dist = std::sqrt( std::pow(lx,2) + std::pow(ly,2) );
     //std::cout << "got a distance at "<< pos << " with "  << dist << std::endl;
     msg_.ranges[pos] = dist;
   }
 
-  for_each( message_actions::MessageAction action, actions )
+  for_each(message_actions::MessageAction action, actions)
   {
     callbacks_[action](msg_);
   }
 }
 
-void LaserConverter::reset( )
+void LaserConverter::reset()
 {
   msg_.header.frame_id = "base_footprint";
   msg_.angle_min = -2.0944;   // -120
   msg_.angle_max = 2.0944;    // +120
-  msg_.angle_increment = (2*2.0944) / (15+15+15+8+8); // 240 deg FoV / 61 points (blind zones inc)
+  msg_.angle_increment = 0.06866884976625443;//(2*2.0944) / (15+15+15+8+8); // 240 deg FoV / 61 points (blind zones inc)
   msg_.range_min = this->range_min_; // in m
   msg_.range_max = this->range_max_; // in m
   msg_.ranges = std::vector<float>(61, -1.0f);
 }
 
 void LaserConverter::setLaserRanges(
-    const float &range_min,
-    const float &range_max) {
-  
-  if (range_min > 0)
+  const float & range_min,
+  const float & range_max)
+{
+
+  if (range_min > 0) {
     this->range_min_ = range_min;
-  else
+  } else {
     this->range_min_ = 0.1;
-  
-  if (range_max > this->range_min_)
+  }
+
+  if (range_max > this->range_min_) {
     this->range_max_ = range_max;
-  else
+  } else {
     this->range_max_ = 3.0;
+  }
 }
 
 } //converter
