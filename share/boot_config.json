@@ -4,8 +4,8 @@
     "front_camera": {
       "enabled": true,
       "resolution": 1,
-      "fps": 20,
-      "recorder_fps": 10
+      "fps": 10,
+      "recorder_fps": 5
     },
     "bottom_camera": {
       "enabled": true,
@@ -17,14 +17,14 @@
       "enabled": true,
       "xtion_resolution": 1,
       "stereo_resolution": 9,
-      "fps": 20,
-      "recorder_fps": 10
+      "fps": 10,
+      "recorder_fps": 5
     },
     "stereo_camera": {
       "enabled": true,
       "resolution": 15,
-      "fps": 20,
-      "recorder_fps": 10
+      "fps": 10,
+      "recorder_fps": 5
     },
     "ir_camera": {
       "enabled": true,
@@ -58,7 +58,7 @@
     },
     "laser": {
       "enabled": true,
-      "frequency": 20,
+      "frequency": 10,
       "range_min": 0.1,
       "range_max": 3.0
     },
