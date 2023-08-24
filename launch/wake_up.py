@@ -87,6 +87,7 @@ def main():
     args = parser.parse_args()
     session = connect(args.ip, args.port)
     mapping_pose(session)
+    session.close()
 
 
 if __name__ == "__main__":

@@ -3,19 +3,19 @@
   "converters": {
     "front_camera": {
       "enabled": true,
-      "resolution": 1,
+      "resolution": 2,
       "fps": 10,
       "recorder_fps": 5
     },
     "bottom_camera": {
-      "enabled": true,
+      "enabled": false,
       "resolution": 1,
       "fps": 10,
       "recorder_fps": 5
     },
     "depth_camera": {
       "enabled": true,
-      "xtion_resolution": 1,
+      "xtion_resolution": 5,
       "stereo_resolution": 9,
       "fps": 10,
       "recorder_fps": 5
@@ -41,7 +41,7 @@
       "frequency": 1
     },
     "diag": {
-      "enabled": true,
+      "enabled": false,
       "frequency": 1
     },
     "imu_torso": {
@@ -63,7 +63,7 @@
       "range_max": 3.0
     },
     "sonar": {
-      "enabled": true,
+      "enabled": false,
       "frequency": 10
     },
     "audio": {
@@ -73,10 +73,10 @@
       "enabled": true
     },
     "touch_hand": {
-      "enabled": true
+      "enabled": false
     },
     "touch_head": {
-      "enabled": true
+      "enabled": false
     },
     "odom": {
       "enabled": true,

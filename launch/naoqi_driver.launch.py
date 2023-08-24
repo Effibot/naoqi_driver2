@@ -21,15 +21,14 @@ def generate_launch_description():
     # wake up the robot
     done = subprocess.run(["python2", wake_up_script, f"--ip=10.1.1.4"])
     # laser filter node
-    filter_node = Node(
-        package="laser_filter",
-        executable="laser_filter",
-        name="filter_node",
-        output="screen",
-    )
+    # filter_node = Node(
+    #    package="laser_filter",
+    #    executable="laser_filter",
+    #    name="filter_node",
+    #    output="screen",
+    # )
     return launch.LaunchDescription(
         [
-            filter_node,
             ip_declare,
             launch.actions.DeclareLaunchArgument(
                 'nao_port', default_value="9559", description='Port to be used for the connection'
@@ -60,5 +59,6 @@ def generate_launch_description():
                 ],
                 output="screen",
             ),
+            # filter_node,
         ]
     )
