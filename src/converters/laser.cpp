@@ -211,7 +211,7 @@ void LaserConverter::callAll(const std::vector<message_actions::MessageAction> &
 
 void LaserConverter::reset()
 {
-  msg_.header.frame_id = "base_footprint";
+  msg_.header.frame_id = "base_footprint";//base_footprint
   msg_.angle_min = -2.0944;   // -120
   msg_.angle_max = 2.0944;    // +120
   msg_.angle_increment = 0.06866884976625443;//(2*2.0944) / (15+15+15+8+8); // 240 deg FoV / 61 points (blind zones inc)
