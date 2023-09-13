@@ -7,6 +7,8 @@ import launch.substitutions
 import launch_ros.actions
 from launch_ros.descriptions import ComposableNode
 from launch_ros.actions import Node, ComposableNodeContainer
+from launch import LaunchContext
+from launch.events.process import ProcessStarted
 import subprocess
 from ament_index_python.packages import get_package_share_directory
 import os
@@ -72,6 +74,8 @@ def generate_launch_description():
         ],
         name="pointcloud_to_laserscan",
     )
+    
+            
     return launch.LaunchDescription(
         [
             ip_declare,
@@ -120,7 +124,7 @@ def generate_launch_description():
                 ],
                 output="screen",
             ),
-            comp_node,
-            pc_to_laserscan_node,
+            #comp_node,
+            #pc_to_laserscan_node,
         ]
     )
