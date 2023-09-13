@@ -19,6 +19,7 @@ find_package(tf2_msgs REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(orocos_kdl REQUIRED)
+find_package(pointcloud_to_laserscan REQUIRED)
 find_package(Boost QUIET COMPONENTS chrono filesystem program_options regex system thread random)
 
 # define source files that can be used by qibuild or catkin

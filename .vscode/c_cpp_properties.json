@@ -1,0 +1,43 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/opt/ros/foxy/include/**",
+        "/home/ros/colcon_ws/src/naoqi_driver2/include/**",
+        "/home/ros/colcon_ws/src/navigation2/nav2_amcl/include/**",
+        "/home/ros/colcon_ws/src/navigation2/nav2_behavior_tree/include/**",
+        "/home/ros/colcon_ws/src/navigation2/nav2_bt_navigator/include/**",
+        "/home/ros/colcon_ws/src/navigation2/nav2_controller/include/**",
+        "/home/ros/colcon_ws/src/navigation2/nav2_core/include/**",
+        "/home/ros/colcon_ws/src/navigation2/nav2_costmap_2d/include/**",
+        "/home/ros/colcon_ws/src/navigation2/nav2_dwb_controller/costmap_queue/include/**",
+        "/home/ros/colcon_ws/src/navigation2/nav2_dwb_controller/dwb_core/include/**",
+        "/home/ros/colcon_ws/src/navigation2/nav2_dwb_controller/dwb_critics/include/**",
+        "/home/ros/colcon_ws/src/navigation2/nav2_dwb_controller/dwb_plugins/include/**",
+        "/home/ros/colcon_ws/src/navigation2/nav2_dwb_controller/nav_2d_utils/include/**",
+        "/home/ros/colcon_ws/src/navigation2/nav2_lifecycle_manager/include/**",
+        "/home/ros/colcon_ws/src/navigation2/nav2_map_server/include/**",
+        "/home/ros/colcon_ws/src/navigation2/nav2_navfn_planner/include/**",
+        "/home/ros/colcon_ws/src/navigation2/nav2_planner/include/**",
+        "/home/ros/colcon_ws/src/navigation2/nav2_recoveries/include/**",
+        "/home/ros/colcon_ws/src/navigation2/nav2_regulated_pure_pursuit_controller/include/**",
+        "/home/ros/colcon_ws/src/navigation2/nav2_rviz_plugins/include/**",
+        "/home/ros/colcon_ws/src/navigation2/nav2_util/include/**",
+        "/home/ros/colcon_ws/src/navigation2/nav2_voxel_grid/include/**",
+        "/home/ros/colcon_ws/src/navigation2/nav2_waypoint_follower/include/**",
+        "/home/ros/colcon_ws/src/navigation2/smac_planner/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}

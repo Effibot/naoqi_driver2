@@ -1,0 +1,13 @@
+{
+    "ros.distro": "foxy",
+    "python.autoComplete.extraPaths": [
+        "/opt/ros/foxy/lib/python3.8/site-packages",
+        "/home/ros/naoqi/pynaoqi/lib/python2.7/site-packages",
+        ""
+    ],
+    "python.analysis.extraPaths": [
+        "/opt/ros/foxy/lib/python3.8/site-packages",
+        "/home/ros/naoqi/pynaoqi/lib/python2.7/site-packages",
+        ""
+    ]
+}
