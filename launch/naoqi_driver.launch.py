@@ -74,21 +74,15 @@ def generate_launch_description():
         ],
         name="pointcloud_to_laserscan",
     )
-    
-            
-    depth = launch.actions.IncludeLaunchDescription(
-        launch.launch_description_sources.PythonLaunchDescriptionSource(
-            launch.substitutions.PathJoinSubstitution(
-                [launch_ros.substitutions.FindPackageShare("pepper_nav"), "launch", "depthimage_scan.launch.py"]
-            )
-        )
-    )
-    laser_to_pointcloud = Node(
-        package='pepper_nav',
-        executable='laserconverter',
-        name='laser_pc2',
-        output='screen'
-    )
+
+    # depth = launch.actions.IncludeLaunchDescription(
+    #    launch.launch_description_sources.PythonLaunchDescriptionSource(
+    #        launch.substitutions.PathJoinSubstitution(
+    #            [launch_ros.substitutions.FindPackageShare("pepper_nav"), "launch", "depthimage_scan.launch.py"]
+    #        )
+    #    )
+    # )
+    laser_to_pointcloud = Node(package='pepper_nav', executable='laserconverter', name='laser_pc2', output='screen')
     return launch.LaunchDescription(
         [
             ip_declare,
@@ -124,22 +118,16 @@ def generate_launch_description():
                 parameters=[
                     {
                         "nao_ip": nao_ip,
-                        "nao_port": launch.substitutions.LaunchConfiguration(
-                            "nao_port"
-                        ),
-                        "password": launch.substitutions.LaunchConfiguration(
-                            "password"
-                        ),
-                        "network_interface": launch.substitutions.LaunchConfiguration(
-                            "network_interface"
-                        ),
+                        "nao_port": launch.substitutions.LaunchConfiguration("nao_port"),
+                        "password": launch.substitutions.LaunchConfiguration("password"),
+                        "network_interface": launch.substitutions.LaunchConfiguration("network_interface"),
                     }
                 ],
                 output="screen",
             ),
-            depth,
-            #laser_to_pointcloud
-            #comp_node,
-            #pc_to_laserscan_node,
+            # depth,
+            # laser_to_pointcloud
+            # comp_node,
+            # pc_to_laserscan_node,
         ]
     )
