@@ -1,9 +1,11 @@
 #! /usr/bin/python2
 
-import qi
+import argparse
 import sys
 import time
-import argparse
+from warnings import catch_warnings
+
+import qi
 
 
 def connect(ip, port=9559):
@@ -21,7 +23,7 @@ def connect(ip, port=9559):
         print(
             "Can't connect to Naoqi at ip \""
             + ip
-            + "\" on port "
+            + '" on port '
             + str(port)
             + ".\nPlease check your script arguments. Run with -h option for help."
         )
@@ -37,10 +39,10 @@ def rotateHead(motion_service):
     # amntY =  input("Enter amount to Move Up(-) And Down(+) [-1,1] : ")
     # amntX =  input("Enter amount to Move Left(-) And Right(+) [-0.5,0.5] : ")
 
-    ###############################
-    # Set to "look down" position #
-    ###############################
-    amntY = 0.5
+    ##################################
+    # Set to "look forward" position #
+    ##################################
+    amntY = 0
     amntX = 0
 
     pFractionMaxSpeed = 0.2
@@ -70,7 +72,7 @@ def mapping_pose(session):
     #####################
     motion_service.setMoveArmsEnabled(False, False)
     try:
-        print("Moving Head to look down...")
+        print("Moving Head to look forward...")
         rotateHead(motion_service=motion_service)
         motion_service.stopMove()
         print("Done, exiting")
@@ -82,12 +84,18 @@ def mapping_pose(session):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--ip", type=str, default="10.1.1.3")
+    parser.add_argument("--ip", type=str, default="127.0.0.1")
     parser.add_argument("--port", type=int, default=9559)
     args = parser.parse_args()
-    session = connect(args.ip, args.port)
-    mapping_pose(session)
-    session.close()
+    session = None
+    try:
+        session = connect(args.ip, args.port)
+        mapping_pose(session)
+    except Exception as e:
+        exit(1)
+    finally:
+        if session != None:
+            session.close()
 
 
 if __name__ == "__main__":
